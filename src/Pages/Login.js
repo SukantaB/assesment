@@ -22,7 +22,7 @@ const Login = (props) => {
       <Input  placeholder="Password" name="password" type="input-box" onChange={onChange}/>
       <View styles={styles.buttonrow}>
         <Button onClick={onClick} title="Login" />
-        <Button onClick={onClick} title="Signup" />
+        <Button onClick={()=>{props.history.push("/signup")}} title="Signup" />
       </View>
     </View>
   );
