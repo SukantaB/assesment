@@ -11,8 +11,8 @@ const Signup = (props) => {
     if(type === "username") serUser({...user , username : e.target.value.trim()})
   }
   const onClick = (e) =>{
-    e.preventDefault()
-    console.log(user)
+    e.preventDefault();
+    if(!user.email || !user.password || !user.username ) return 
     const emailreg = /^([a-z0-9_\-\.]+)@([a-z0-9_\-\.]+)\.([a-z]{2,5})$/g
     // var passwordreg = new RegExp("^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\$%\^&\*])(?=.{8,})");
     if(!emailreg.test(user.email)) return;
@@ -21,7 +21,7 @@ const Signup = (props) => {
     Axios.post("/api/user/signup", {...data}).then(res => {
       localStorage.setItem("authkey", res.data.token)
       props.history.push("/home")
-    }).catch(err => {console.log(err)})
+    }).catch(err => {console.log(err); alert("please check readme for valid password format")})
   }
   return (
     <View style={styles.container}>

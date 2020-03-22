@@ -10,11 +10,12 @@ const Login = (props) => {
     if(type === "password") serUser({...user , password : e.target.value})
   }
   const onClick = () =>{
+    if(!user.email || !user.password) return;
     const data = {email: user.email , password: user.password}
     Axios.post("/api/user/login", {...data}).then(res => {
       localStorage.setItem("authkey", res.data.token)
       props.history.push("/home")
-    } ).catch(err => {console.log(err)})
+    } ).catch(err => {console.log(err); alert("INVALID ID PASSWORD")})
   }
   return (
     <View style={styles.container}>
