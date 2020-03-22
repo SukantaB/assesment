@@ -1,7 +1,8 @@
 import React ,{useEffect , useState} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import Input from "../InputComponent";
 import Button from "../ButtonComponent";
+import {styles} from "./style";
 const CommnetComponentjs = (props) => {
     return (
         <View styles={styles.commentContainer}>
@@ -23,26 +24,3 @@ const CommnetComponentjs = (props) => {
 
 export default CommnetComponentjs
 
-const styles = StyleSheet.create({
-    commentContainer: {
-        width:"100%",
-        height: "90px",
-        backgroundColor:"#cccc",
-        marginTop: "5px"
-    },
-    content:{
-        width: "80%",
-        backgroundColor: "#ffff",
-        borderRadius: "2px",
-        marginLeft:"auto",
-        marginRight:"auto",
-        height:"60%",
-    },
-    comments:{
-        width:"100%",
-        height: "50px",
-        backgroundColor:"#cccc",
-        marginTop: "5px",
-        justifyContent:"center"
-    }
-})
