@@ -9,7 +9,7 @@ import Home from "./Pages/Home";
 import Signup from "./Pages/Signup";
 import Post from "./Pages/Post";
 const App = props => {
-  const [ authtoken , setAuthtoken] = useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzczMDdmZGNkNjUwMmI3NDlmNWQ4NiIsImlhdCI6MTU4NDg3MjI2OSwiZXhwIjoxNTkyNjQ4MjY5fQ.AclU0QRug-NPBfwlxb03FcmyvD0qXYjGEcE6GKpZfkA")
+  const [ authtoken , setAuthtoken] = useState("")
   const [postid , setpostid] = useState("");
   const selectPostId =(id) =>{
     setpostid(id);
