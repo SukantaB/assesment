@@ -11,14 +11,19 @@ const Login = (props) => {
   }
   const onClick = () =>{
     const data = {email: user.email , password: user.password}
-    console.log(data)
-    Axios.post("/api/user/login", {...data}).then(res => {console.log(res.data.token); props.setauth(res.data.token)} ).catch(err => {console.log(err)})
+    Axios.post("/api/user/login", {...data}).then(res => {
+      localStorage.setItem("authkey", res.data.token)
+      props.history.push("/home")
+    } ).catch(err => {console.log(err)})
   }
   return (
     <View style={styles.container}>
       <Input  placeholder="Email" name="email" type="input-box" onChange={onChange}/>
       <Input  placeholder="Password" name="password" type="input-box" onChange={onChange}/>
-      <Button onClick={onClick} title="Login" />
+      <View styles={styles.buttonrow}>
+        <Button onClick={onClick} title="Login" />
+        <Button onClick={onClick} title="Signup" />
+      </View>
     </View>
   );
 };
@@ -31,5 +36,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#cccc",
     padding: "5rem",
     justifyContent:"center" ,
+  },
+  buttonrow:{
+    flexDirection: "column"
   }
 });

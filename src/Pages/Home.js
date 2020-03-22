@@ -18,14 +18,21 @@ const Home = (props) => {
     e.preventDefault();
     console.log(postDetails)
     if(!postDetails.title || !postDetails.content ) return
-    const header = {authorization: `Bearer ${props.authtoken}`}
+    const authtoken = localStorage.getItem("authkey")
+    const header = {authorization: `Bearer ${authtoken}`}
     const data ={title :postDetails.title , content : postDetails.content }
     Axios.post("/api/post", {...data}, { headers: {...header}} ).then(res => setPost([...posts, res.data.data])).catch(err => console.log(err))
   }
+  const selectPostId =(id) =>{
+    props.history.push(`post/${id}`)
+  }
   useEffect(()=>{
-    const header = {authorization: `Bearer ${props.authtoken}`}
+    const authtoken = localStorage.getItem("authkey")
+    console.log(authtoken)
+    const header = {authorization: `Bearer ${authtoken}`}
     Axios.get("/api/post" ,{ headers: {...header}} ).then(res => setPost(res.data.data)).catch(err => {console.log(err)})
   },[])
+
   return (
     <View>
     <View style={styles.container}>
@@ -34,7 +41,7 @@ const Home = (props) => {
       <Button onClick={onClick} title="Submit" />
     </View>
     <View>
-      <Post  posts={posts} selectPostId={props.selectPostId}/>
+      <Post  posts={posts} selectPostId={selectPostId}/>
     </View>
     </View>
   );

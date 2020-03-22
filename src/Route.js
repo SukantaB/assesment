@@ -1,39 +1,19 @@
 import React , {useState} from "react";
 import AuthCheck from "./utils/auth";
-// import { NativeRouter, Route, Link , withRouter} from "react-router-native";
-import { StyleSheet, Text, View, TextInput  } from "react-native";
-
-// Components
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Signup from "./Pages/Signup";
 import Post from "./Pages/Post";
+
 const App = props => {
-  const [ authtoken , setAuthtoken] = useState("")
-  const [postid , setpostid] = useState("");
-  const selectPostId =(id) =>{
-    setpostid(id);
-  }
-  const setToken = (el) => {
-    setAuthtoken(el)
-  }
   return (  
-  <View >
-    {
-      authtoken === "" &&
-      <View >
-        <Signup setauth={setToken}/>
-        <Login setauth={setToken}/>
-      </View>
-    }
-    {
-      authtoken !== "" &&
-      <View style={{flexDirection:"row" , justifyContent:"space-around" }}>
-        <Home setauth={setToken} authtoken={authtoken} selectPostId={selectPostId} />
-        {postid !== "" && <Post authtoken={authtoken} postid={postid}/>}
-      </View>
-    }
-  </View>
+  <BrowserRouter >
+    <Route path="/" exact  component={AuthCheck(Login)}/>
+    <Route path="/signup" component={AuthCheck(Signup)} />
+    <Route path="/home" component={AuthCheck(Home)} />
+    <Route path="/post/:id" component={AuthCheck(Post)} />
+  </BrowserRouter>
   )
 };
 export default App;

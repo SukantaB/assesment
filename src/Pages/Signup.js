@@ -18,7 +18,10 @@ const Signup = (props) => {
     if(!emailreg.test(user.email)) return;
     // if(!user.password.match(passwordreg)) return;
     const data = { name: user.username , email : user.email , password : user.password}
-    Axios.post("/api/user/signup", {...data}).then(res => {props.setauth(res.data.token)}).catch(err => {console.log(err)})
+    Axios.post("/api/user/signup", {...data}).then(res => {
+      localStorage.setItem("authkey", res.data.token)
+      props.history.push("/home")
+    }).catch(err => {console.log(err)})
   }
   return (
     <View style={styles.container}>

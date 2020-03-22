@@ -1,4 +1,4 @@
-import React , {useState , useEffect} from 'react';
+import React , {useState , useEffect , useParams} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {styles} from "../Component/PostComponent"
 import Comment from "../Component/CommnetComponent";
@@ -7,6 +7,7 @@ import Axios from "axios";
 const Post = (props) => {
     const [comment , setCommnet ] = useState("");
     const [post , setPost ] = useState("");
+    const { id } = useParams();
 
     const onChange = (e , type) =>{
         if(type === "comment")
@@ -15,8 +16,9 @@ const Post = (props) => {
       const onSubmit =() =>{
         if(!comment) return;
         const data = {content : comment}
-        const header = {authorization: `Bearer ${props.authtoken}`}
-        Axios.post(`/api/post/${props.postid}` , {...data} , { headers: {...header}}).then(res => {
+        const authtoken = localStorage.getItem("authkey")
+        const header = {authorization: `Bearer ${authtoken}`}
+        Axios.post(`/api/post/${id}` , {...data} , { headers: {...header}}).then(res => {
             const newpost = post;
             newpost._comments.push({content : comment})
             setPost({...newpost});
@@ -24,8 +26,9 @@ const Post = (props) => {
         }).catch(err => console.log(err))
       }
       useEffect(()=>{
-        const header = {authorization: `Bearer ${props.authtoken}`}
-        Axios.get(`/api/post/${props.postid}` ,{ headers: {...header}} ).then(res => setPost(res.data.data)).catch(err => {console.log(err)})
+        const authtoken = localStorage.getItem("authkey")
+        const header = {authorization: `Bearer ${authtoken}`}
+        Axios.get(`/api/post/${id}` ,{ headers: {...header}} ).then(res => setPost(res.data.data)).catch(err => {console.log(err)})
       }, [props.postid])
     return (
         post !== "" &&
