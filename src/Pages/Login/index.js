@@ -1,7 +1,7 @@
 import React , {useState} from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Input from "../Component/InputCOmponent";
-import Button from "../Component/ButtonComponent";
+import { StyleSheet, View } from "react-native";
+import Input from "../../Component/InputComponent";
+import Button from "../../Component/ButtonComponent";
 import Axios from "axios";
 const Login = (props) => {
   const [user , serUser ] =  useState({email:"" , password: ""})
@@ -22,7 +22,6 @@ const Login = (props) => {
       <Input  placeholder="Password" name="password" type="input-box" onChange={onChange}/>
       <View styles={styles.buttonrow}>
         <Button onClick={onClick} title="Login" />
-        <Button onClick={()=>{props.history.push("/signup")}} title="Signup" />
       </View>
     </View>
   );

@@ -1,8 +1,6 @@
 // import "./index.css";
 import App from "./Route";
 import { AppRegistry } from "react-native";
-import Login from "./Pages/Login";
-import Home from "./Pages/Home";
 // ReactDOM.render(
 //   <React.StrictMode>
 //     <App />

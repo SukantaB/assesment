@@ -1,13 +1,12 @@
-import React , {useState , useEffect , useParams} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {styles} from "../Component/PostComponent"
-import Comment from "../Component/CommnetComponent";
+import React , {useState , useEffect } from 'react';
 import Axios from "axios";
+import { StyleSheet, Text, View } from 'react-native';
+import {styles} from "./style"
+import Comment from "../../Component/CommentComponent";
 
 const Post = (props) => {
     const [comment , setCommnet ] = useState("");
     const [post , setPost ] = useState("");
-    const { id } = useParams();
 
     const onChange = (e , type) =>{
         if(type === "comment")
@@ -18,6 +17,7 @@ const Post = (props) => {
         const data = {content : comment}
         const authtoken = localStorage.getItem("authkey")
         const header = {authorization: `Bearer ${authtoken}`}
+        const id = props.match.params.id
         Axios.post(`/api/post/${id}` , {...data} , { headers: {...header}}).then(res => {
             const newpost = post;
             newpost._comments.push({content : comment})
@@ -28,16 +28,18 @@ const Post = (props) => {
       useEffect(()=>{
         const authtoken = localStorage.getItem("authkey")
         const header = {authorization: `Bearer ${authtoken}`}
+        const id = props.match.params.id
         Axios.get(`/api/post/${id}` ,{ headers: {...header}} ).then(res => setPost(res.data.data)).catch(err => {console.log(err)})
       }, [props.postid])
     return (
         post !== "" &&
-        <View>
+        <View style={{width:"50%" , alignSelf:"center"}}>
         <View style={styles.postscontainer}>
-                <Text style={styles.title}>Tittle: {post.title} </Text>
+        <Text style={styles.title}> User: {post._userid.name} Tittle: {post.title}  </Text>
                 <Text style={styles.content}> {post.content}</Text>
         </View>
-        <View>
+        <View style={{width:"80%" , alignSelf:"center"}}>
+          <Text>Comments</Text>
             <Comment onSubmit ={onSubmit} onChange={onChange} comments={post}  />
         </View>
         </View>

@@ -1,8 +1,8 @@
 import React , {useState} from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Input from "../Component/InputCOmponent";
-import Button from "../Component/ButtonComponent";
+import { StyleSheet, View } from "react-native";
 import Axios from "axios";
+import Input from "../../Component/InputComponent";
+import Button from "../../Component/ButtonComponent";
 const Signup = (props) => {
   const [user , serUser ] =  useState({email:"" , password: "" , username:""})
   const onChange = (e, type) =>{
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#cccc",
     padding: "5rem",
     justifyContent:"center" ,
-    marginBottom: "10px"
+    marginBottom: "10px",
   }
 });

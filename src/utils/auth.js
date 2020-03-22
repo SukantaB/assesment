@@ -1,6 +1,5 @@
 import React from "react";
 // import AsyncStorage from "@react-native-community/async-storage";
-import {withRouter} from "react-router-dom"
 const AuthCheck = WrappedComponent => {
   class newComponent extends React.Component {
     componentDidMount(){

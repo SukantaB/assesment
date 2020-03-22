@@ -1,9 +1,9 @@
 import React , {useState, useEffect} from "react";
-import { StyleSheet, Text, View, TextInput  } from "react-native";
-import Input from "../Component/InputCOmponent";
-import Button from "../Component/ButtonComponent";
+import { StyleSheet, View , Text} from "react-native";
 import Axios from "axios";
-import Post from "../Component/PostComponent"
+import Input from "../../Component/InputComponent";
+import Button from "../../Component/ButtonComponent";
+import Post from "../../Component/PostComponent"
 const Home = (props) => {
   const [postDetails , setPostDetails ] = useState({title: "" , content: ""});
   const [posts, setPost] = useState([])
@@ -30,17 +30,18 @@ const Home = (props) => {
     const authtoken = localStorage.getItem("authkey")
     console.log(authtoken)
     const header = {authorization: `Bearer ${authtoken}`}
-    Axios.get("/api/post" ,{ headers: {...header}} ).then(res => setPost(res.data.data)).catch(err => {console.log(err)})
+    Axios.get("/api/post" ,{ headers: {...header}} ).then(res => {setPost(res.data.data);}).catch(err => {console.log(err)})
   },[])
 
   return (
-    <View>
+    <View style={{flexDirection:"row"}}>
     <View style={styles.container}>
       <Input  placeholder="Title" name="title" type="input" onChange={onChange}/>
       <Input  placeholder="Content" name="post" type="text-box" onChange={onChange}/>
       <Button onClick={onClick} title="Submit" />
     </View>
-    <View>
+    <View style={styles.posts}>
+      <Text>Select from posts</Text>
       <Post  posts={posts} selectPostId={selectPostId}/>
     </View>
     </View>
@@ -55,6 +56,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#cccc",
     padding: "5rem",
     justifyContent:"center" ,
-    textAlign:"center"   
+    textAlign:"center",
+    flexGrow: 0  
   },
+  posts: {
+    margin: "auto",
+    width: "40%",
+    maxHeight:"90vh",
+    minHeight:"90vh",
+    overflow:"scroll"
+  }
 });

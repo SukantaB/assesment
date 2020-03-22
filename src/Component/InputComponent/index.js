@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
         borderRadius: "5px",
         height: "4rem",
         width: "400px",
-        textAlign:"center"
+        textAlign:"center",
+        alignSelf:"center",
     },
     input: {
         marginTop : "5px",
